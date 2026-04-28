@@ -226,9 +226,13 @@ def get_stats():
     return jsonify({"total": total, "high": high, "active": active, "by_type": [dict(r) for r in by_type]})
 
 if __name__ == "__main__":
+    import os
+
     # Initialize DB on startup
     get_db()
-    print("🚨 ZERS Backend running on http://localhost:5000")
-    print("   Main UI: http://localhost:5000")
-    print("   Rescue Dashboard: http://localhost:5000/rescue")
-    app.run(debug=True, port=5000)
+
+    port = int(os.environ.get("PORT", 81))
+
+    print(f"🚨 ZERS Backend running on port {port}")
+    
+    app.run(host="0.0.0.0", port=port, debug=True)
